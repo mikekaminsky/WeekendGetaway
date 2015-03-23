@@ -3,7 +3,7 @@ An application for finding cheap long-weekend flights
 
 1. Loop over [this list](https://www.world-airport-codes.com/world-top-30-airports.html) of airports
 2. Loop over next 10 Weeknds (Friday-Monday trips)
-3. Execute query against [QPX API](https://developers.google.com/qpx-express/v1/requests)
+3. Execute query against [QPX API](https://developers.google.com/qpx-express/v1/requests). See [this](http://www.tagwith.com/question_506297_qpx-express-api-from-python/) for example in python
 4. Save results:
   * date_queried
   * Dates of trip
