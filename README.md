@@ -1,18 +1,15 @@
 # WeekendGetaway
 An application for finding cheap long-weekend flights
 
-1. Loop over [this list](https://www.world-airport-codes.com/world-top-30-airports.html) of airports
-2. Loop over next 10 Weeknds (Friday-Monday trips)
-3. Execute query against [QPX API](https://developers.google.com/qpx-express/v1/requests). See [this](http://www.tagwith.com/question_506297_qpx-express-api-from-python/) for example in python
-4. Save results:
-  * date_queried
-  * Dates of trip
-  * from_airport
-  * to_airport
-  * flight_number_out
-  * flight_number_back
-  * total_price
-5. Email results
-  * Initially, just email 10 lowest prices with dates
-  * After 1 month, look for price drops and send email with alerts for prices that are lower than historic median.
-
+ToDo:
+* [ ] Create general database connection class
+*   [ ] Create local sqlite db for development
+* [ ] Create setup method to create new DB with the following tables:
+  * [ ] trips
+  * [ ] flights
+  * [ ] legs
+* [ ] Create update method to add new trips, flights, and legs
+* [ ] Create ruby app to display data from JSON
+  * Not sure how to organize data?
+    * [datatables](https://www.datatables.net/) is an option, but unclear how to display multiple legs.
+    * Could custom right javascript for display (a la Kayak), but then sorting and filtering is a pain.
