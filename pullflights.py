@@ -1,33 +1,6 @@
 #pullflights.py
 #Michael Kaminsky
 
-# data model
-#
-#  trips
-#    trips.id
-#    trips.origin_city
-#    trips.destination_city
-#    trips.departure_date
-#    trips.return_date
-#
-#  flights
-#    flights.id
-#    flights.trip_id
-#    flights.date_queried
-#    flights.price
-#    flights.leg_id
-#
-#  legs
-#    legs.id
-#    legs.flight_id
-#    legs.carrier
-#    legs.flight_number
-#    legs.origin
-#    legs.departure_time
-#    legs.destination
-#    legs.arrival_time
-#    legs.duration
-
 import json
 import requests
 import pandas
