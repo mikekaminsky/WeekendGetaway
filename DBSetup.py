@@ -15,7 +15,6 @@ import psycopg2
 #    flights.trip_id
 #    flights.time_queried
 #    flights.price
-#    flights.leg_id
 #
 #  legs
 #    legs.id
@@ -37,8 +36,8 @@ class DBSetup(object):
         print "DBSetup object created"
 
         if db_url is None:
-          db_url = 'postgres'
-          print "Defaulting to local postgres"
+          db_url = 'weekendgetaway'
+          print "Defaulting to weekendgetaway db in local postgres"
 
         if username is None:
           username = os.environ['USER']
@@ -59,7 +58,9 @@ class DBSetup(object):
         con = psycopg2.connect(dbname=self.db_url, user=self.username, host=self.host)
         con.autocommit = True
         cur = con.cursor()
-        cur.execute("DROP DATABASE IF EXISTS weekendgetaway;")
+        cur.execute(' DROP TABLE IF EXISTS trips; ')
+        cur.execute(' DROP TABLE IF EXISTS flights; ')
+        cur.execute(' DROP TABLE IF EXISTS legs; ')
         con.commit()
         cur.close()
         con.close()
@@ -71,14 +72,10 @@ class DBSetup(object):
         con = psycopg2.connect(dbname=self.db_url, user=self.username, host=self.host)
         con.autocommit = True
         cur = con.cursor()
-        cur.execute(' CREATE DATABASE weekendgetaway; ')
         cur.execute(" SET timezone TO 'GMT' ;")
-        cur.execute(' DROP TABLE IF EXISTS trips; ')
-        cur.execute(' CREATE TABLE trips (id integer primary key, origin_city text, destination_city text, departure_date date, return_date date); ')
-        cur.execute(' DROP TABLE IF EXISTS flights; ')
-        cur.execute(' CREATE TABLE flights (id integer primary key, trip_id integer, time_queried timestamp, price numeric, leg_id integer); ')
-        cur.execute(' DROP TABLE IF EXISTS legs; ')
-        cur.execute(' CREATE TABLE legs (id integer primary key, flight_id integer, carrier text, flight_number integer, origin text, departure_time timestamp, destination text, arrival_time timestamp, duration integer); ')
+        cur.execute(' CREATE TABLE trips (id serial primary key, origin_city text, destination_city text, departure_date date, return_date date); ')
+        cur.execute(' CREATE TABLE flights (id serial primary key, trip_id integer, time_queried timestamp, price text); ')
+        cur.execute(' CREATE TABLE legs (id serial primary key, flight_id integer, carrier text, flight_number integer, origin text, departure_time timestamp, destination text, arrival_time timestamp, duration integer); ')
         con.commit()
         cur.close()
         con.close()
