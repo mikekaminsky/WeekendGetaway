@@ -82,7 +82,10 @@ for destination_city in airport_list:
             """, (cur_id, date_time, total_cost))
         flight_id = cur.fetchall()
         flight_id = flight_id[0][0]
+        slicenum = 0
         for eachslice in option['slice']: # Here is where we determine inbound vs. outbound slices.
+            slice_duration = eachslice['duration']
+            slicenum += 1
             for segment in eachslice['segment']:
                 segment_travel_time = segment['duration']
                 carrier = segment['flight']['carrier']
@@ -94,7 +97,7 @@ for destination_city in airport_list:
                     leg_arrival = leg['arrivalTime']
                     leg_duration = leg['duration']
                     cur.execute("""
-                        INSERT INTO legs (flight_id, carrier, flight_number, origin, departure_time, destination, arrival_time, duration) 
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                        RETURNING id""", (flight_id, carrier, number, leg_origin, leg_departure, leg_destination, leg_arrival, leg_duration))
+                        INSERT INTO legs (slice, flight_id, carrier, flight_number, origin, departure_time, destination, arrival_time, duration, slice_duration) 
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        RETURNING id""", (slicenum, flight_id, carrier, number, leg_origin, leg_departure, leg_destination, leg_arrival, leg_duration, slice_duration))
                     con.commit()

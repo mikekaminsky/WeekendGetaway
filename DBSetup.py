@@ -19,6 +19,7 @@ import psycopg2
 #  legs
 #    legs.id
 #    legs.flight_id
+#    legs.slice
 #    legs.carrier
 #    legs.flight_number
 #    legs.origin
@@ -26,6 +27,7 @@ import psycopg2
 #    legs.destination
 #    legs.arrival_time
 #    legs.duration
+#    legs.slice_duration
 
 
 class DBSetup(object):
@@ -75,7 +77,7 @@ class DBSetup(object):
         cur.execute(" SET timezone TO 'GMT' ;")
         cur.execute(' CREATE TABLE trips (id serial primary key, origin_city text, destination_city text, departure_date date, return_date date); ')
         cur.execute(' CREATE TABLE flights (id serial primary key, trip_id integer, time_queried timestamp, price text); ')
-        cur.execute(' CREATE TABLE legs (id serial primary key, flight_id integer, carrier text, flight_number integer, origin text, departure_time timestamp, destination text, arrival_time timestamp, duration integer); ')
+        cur.execute(' CREATE TABLE legs (id serial primary key, flight_id integer, slice integer, carrier text, flight_number integer, origin text, departure_time timestamp, destination text, arrival_time timestamp, duration integer, slice_duration integer); ')
         con.commit()
         cur.close()
         con.close()
