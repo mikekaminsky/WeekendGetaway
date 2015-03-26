@@ -12,8 +12,7 @@ ToDo:
 * [x] Loop over legs in a segment (just in case there are multiple legs to a single flight)
 * [x] Use segment number to determine outbound vs. inbound on return trips and add to data model
 * [x] Collect duration by slice so it includes layover time and add to data model
-* [ ] Refactor pullflights into object with simpler methods -- remove some amount of nesting if possible
-  * [ ] Improve use of dates throughout
+* [x] Refactor pullflights into object with simpler methods -- remove some amount of nesting if possible
 * [ ] Set up payments for API use
 * [ ] Loop over next 10 weekends
 * [ ] Loop over top 100 airports
