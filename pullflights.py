@@ -19,7 +19,8 @@ execfile("secrets.py") # declares api_key variable
 # Constants
 url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + api_key
 headers = {'content-type': 'application/json'}
-airport_list = ["ATL", "PEK", "LHR", "HND", "ORD"]
+#airport_list = ["ATL", "PEK", "LHR", "HND", "ORD"]
+airport_list = ["ORD"]
 origin_city = "NYC"
 departure_date = "2015-03-27"
 return_date = str(datetime.datetime.strptime(departure_date,"%Y-%m-%d").date() + datetime.timedelta(days = 3))
@@ -86,14 +87,14 @@ for destination_city in airport_list:
                 segment_travel_time = segment['duration']
                 carrier = segment['flight']['carrier']
                 number = segment['flight']['number']
-                leg = segment['leg'][0] # I think we need to make this an explicit loop!
-                leg_origin = leg['origin']
-                leg_departure = leg['departureTime']
-                leg_destination = leg['destination']
-                leg_arrival = leg['arrivalTime']
-                leg_duration = leg['duration']
-                cur.execute("""
-                    INSERT INTO legs (flight_id, carrier, flight_number, origin, departure_time, destination, arrival_time, duration) 
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                    RETURNING id""", (flight_id, carrier, number, leg_origin, leg_departure, leg_destination, leg_arrival, leg_duration))
-                con.commit()
+                for leg in segment['leg']:
+                    leg_origin = leg['origin']
+                    leg_departure = leg['departureTime']
+                    leg_destination = leg['destination']
+                    leg_arrival = leg['arrivalTime']
+                    leg_duration = leg['duration']
+                    cur.execute("""
+                        INSERT INTO legs (flight_id, carrier, flight_number, origin, departure_time, destination, arrival_time, duration) 
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                        RETURNING id""", (flight_id, carrier, number, leg_origin, leg_departure, leg_destination, leg_arrival, leg_duration))
+                    con.commit()
