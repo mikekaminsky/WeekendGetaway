@@ -6,10 +6,7 @@ execfile("secrets.py") # declares api_key variable
 
 execfile("PullFlights.py")
 
-db_url = 'weekendgetaway'
-username = os.environ['USER']
-host = 'localhost'
-con = psycopg2.connect(dbname=db_url, user=username, host=host)
+con = psycopg2.connect(dbname=db_url, user=username, host=host, password = db_password)
 cur = con.cursor()
 
 # Inputs
