@@ -4,12 +4,9 @@
 import json
 import requests
 import time
-import psycopg2
 import os
 
 # Constants
-url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + api_key
-headers = {'content-type': 'application/json'}
 
 class PullFlights(object):
     """
@@ -17,14 +14,14 @@ class PullFlights(object):
     """
 
     def __init__(self, 
-                 cur = None, 
+                 con = None, 
                  origin_list = None, 
                  destination_list = None,
                  date_list = None, 
+                 api_key = None
                  ):
-        print "PullFlights object created"
 
-        if cur is None:
+        if con is None:
           print "You must provide a database connection!"
           raise
 
@@ -40,10 +37,19 @@ class PullFlights(object):
           print "You must provide a list of date_tuples for leave and return!"
           raise
 
-        self.cur = cur
+        if api_key is None:
+          print "You must provide an API key!"
+          raise
+
+        self.con = con
         self.origin_list = origin_list
         self.destination_list = destination_list
         self.date_list = date_list
+
+        self.url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + api_key
+        self.headers = {'content-type': 'application/json'}
+
+        print "PullFlights object created"
 
     def make_header(self, origin_city, destination_city, departure_date, return_date):
         """
@@ -72,6 +78,7 @@ class PullFlights(object):
         return params
 
     def UpdateData(self):
+        cur = self.con.cursor()
         for origin_city in self.origin_list:
             for destination_city in self.destination_list:
 
@@ -87,7 +94,7 @@ class PullFlights(object):
                   params = self.make_header(origin_city, destination_city, departure_date, return_date)
 
                   date_time = time.strftime("%Y/%m/%d %H:%M:%S")
-                  response = requests.post(url, data=json.dumps(params), headers=headers)
+                  response = requests.post(self.url, data=json.dumps(params), headers=self.headers)
                   options = response.json()['trips']['tripOption']
 
                   # Check if row is already in the database
@@ -138,4 +145,4 @@ class PullFlights(object):
                                       INSERT INTO legs (slice, flight_id, carrier, flight_number, origin, departure_time, destination, arrival_time, duration, slice_duration) 
                                       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                                       RETURNING id""", (slicenum, flight_id, carrier, number, leg_origin, leg_departure, leg_destination, leg_arrival, leg_duration, slice_duration))
-                                  con.commit()
+                                  self.con.commit()
