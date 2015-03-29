@@ -2,12 +2,12 @@
 #Michael Kaminsky
 
 import datetime
+import PullFlights
+import psycopg2
+
 execfile("secrets.py") # declares api_key variable
 
-execfile("PullFlights.py")
-
-con = psycopg2.connect(dbname=db_url, user=username, host=host, password = db_password)
-cur = con.cursor()
+con = psycopg2.connect(dbname=db_name, user=username, host=host, password = db_password)
 
 # Inputs
 destination_list = ["AUS", "PHX", "LAX"]
@@ -22,6 +22,5 @@ for date in departure_dates:
   date_pair = (date, return_date)
   date_list.append(date_pair)
 
-
-pf = PullFlights(cur, origin_list, destination_list, date_list)
+pf = PullFlights.PullFlights(con, origin_list, destination_list, date_list, api_key)
 pf.UpdateData()
