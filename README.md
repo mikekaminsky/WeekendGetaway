@@ -14,8 +14,8 @@ ToDo:
 * [x] Collect duration by slice so it includes layover time and add to data model
 * [x] Refactor pullflights into object with simpler methods -- remove some amount of nesting if possible
 * [x] Create ruby app to display data from JSON
-* [ ] Switch to using SQL Alchemy ORM for easier maintenance
-* [ ] Split out slices into their own table
+* [x] Switch to using SQL Alchemy ORM for easier maintenance and migrations
+* [x] Split out slices into their own table
 * [ ] Use separate price and currency fields in model
 * [ ] Try to figure out  a good system for doing migrations...[Try SQLAlchemy-Migrate](http://www.karoltomala.com/blog/?p=633) or [Alembic](http://alembic.readthedocs.org/en/latest/tutorial.html)
 * [ ] Deploy app on heroku
