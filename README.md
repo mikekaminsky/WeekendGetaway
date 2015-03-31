@@ -15,6 +15,7 @@ ToDo:
 * [x] Refactor pullflights into object with simpler methods -- remove some amount of nesting if possible
 * [x] Create ruby app to display data from JSON
 * [ ] Switch to using SQL Alchemy ORM for easier maintenance and migrations
+* [ ] Split out slices into their own table
 * [ ] Use separate price and currency fields in model
 * [ ] Deploy app to heroku
 * [ ] Set up payments for API use
