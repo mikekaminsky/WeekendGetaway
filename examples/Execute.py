@@ -6,13 +6,13 @@ import PullFlights
 import psycopg2
 import os
 
-execfile("secrets.py") # declares api_key variable
 
 db_name = 'weekendgetaway'
 username = os.environ['USER']
 host = 'localhost'
 db_password = ''
 
+execfile("secrets.py") # declares api_key variable
 
 con = psycopg2.connect(dbname=db_name, user=username, host=host, password = db_password)
 
