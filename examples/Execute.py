@@ -3,7 +3,6 @@
 
 import datetime
 import PullFlights
-import psycopg2
 from Connection import *
 
 # Inputs
