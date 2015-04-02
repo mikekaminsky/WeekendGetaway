@@ -1,5 +1,5 @@
 #models.py
-from sqlalchemy import Column, Integer, String, Date, Boolean, DateTime
+from sqlalchemy import Column, Integer, String, Date, Boolean, DateTime, Numeric
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
@@ -22,7 +22,8 @@ class Journey(Base):
     id = Column(Integer, primary_key=True)
     trip_id = Column(Integer, ForeignKey('trips.id'))
     time_queried = Column(DateTime)
-    price = Column(String)
+    price = Column(Numeric)
+    currency = Column(String)
 
     trip = relationship("Trip", backref=backref('journeys', lazy='dynamic', order_by=id))
 

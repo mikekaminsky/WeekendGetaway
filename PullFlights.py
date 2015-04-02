@@ -4,6 +4,7 @@
 import json
 import requests
 import time
+import re
 import os
 from db.models import *
 from Connection import *
@@ -117,8 +118,9 @@ class PullFlights(object):
 
                   # Begin looping through options
                   for option in options:
-                      total_cost = option['saleTotal']
-                      newjourney = Journey(time_queried = date_time, price = total_cost)
+                      total_cost = re.sub('[^0-9\.]','',option['saleTotal'])
+                      currency = re.sub('[\d\.]','',option['saleTotal'])
+                      newjourney = Journey(time_queried = date_time, price = total_cost, currency = currency)
                       slicenum = 0
                       for eachslice in option['slice']: # Here is where we determine inbound vs. outbound slices.
                         outgoing = True if slicenum == 0 else False
