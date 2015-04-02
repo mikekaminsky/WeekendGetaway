@@ -18,7 +18,7 @@ ToDo:
 * [x] Split out slices into their own table
 * [ ] Use separate price and currency fields in model
 * [ ] Try to figure out  a good system for doing migrations...[Try SQLAlchemy-Migrate](http://www.karoltomala.com/blog/?p=633) or [Alembic](http://alembic.readthedocs.org/en/latest/tutorial.html)
-* [ ] Deploy app on heroku
+* [x] Deploy app on heroku
 * [ ] Set up payments for API use
 * [ ] Loop over next 10 weekends
 * [ ] Loop over top 100 airports
