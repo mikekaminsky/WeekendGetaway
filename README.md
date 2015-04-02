@@ -18,7 +18,7 @@ ToDo:
 * [x] Split out slices into their own table
 * [x] Use separate price and currency fields in model
 * [x] Deploy app on heroku
-* [ ] Find better way of specifying database. Either use secrets.py, or see [this SO thread](http://stackoverflow.com/questions/5981508/share-database-between-2-apps-in-heroku)
+* [ ] Find better way of specifying database. Either use secrets.py, or see [this SO thread](http://stackoverflow.com/questions/5981508/share-database-between-2-apps-in-heroku) or [this Heroku post](https://blog.heroku.com/archives/2015/1/23/expanding_the_power_of_add_ons)
 * [ ] Try to figure out  a good system for doing migrations...[Try SQLAlchemy-Migrate](http://www.karoltomala.com/blog/?p=633) or [Alembic](http://alembic.readthedocs.org/en/latest/tutorial.html)
 * [ ] Set up payments for API use
 * [ ] Loop over next 10 weekends
