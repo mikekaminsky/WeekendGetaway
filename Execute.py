@@ -3,7 +3,7 @@
 
 import datetime
 import PullFlights
-from Connection import *
+from db.Connection import *
 
 # Inputs
 #destination_list = ["AUS", "PHX", "LAX"]

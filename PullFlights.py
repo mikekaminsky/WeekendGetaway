@@ -7,7 +7,7 @@ import time
 import re
 import os
 from db.models import *
-from Connection import *
+from db.Connection import *
 from sqlalchemy.orm.exc import NoResultFound
 
 class PullFlights(object):

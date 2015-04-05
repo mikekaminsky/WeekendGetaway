@@ -2,11 +2,12 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-execfile("secrets.py") # declares api_key variable
-db_name = 'weekendgetaway'
-username = os.environ['USER']
-host = 'localhost'
-db_password = ''
+api_key = os.environ['API_KEY']
+
+username = os.environ['USERNAME']
+db_password = os.environ['DB_PASSWORD']
+db_name = os.environ['DB_NAME']
+host = os.environ['HOST']
 
 def create_url(dialect = "postgres", driver = "", username = "", password = "", host = "", port = "", database = ""):
     #dialect+driver://username:password@host:port/database
