@@ -91,8 +91,8 @@ class PullFlights(object):
                   departure_date = date_tuple[0]
                   return_date    = date_tuple[1]
 
-                  print origin_city + destination_city + departure_date + return_date
-                  params = self.make_header(origin_city, destination_city, departure_date, return_date)
+                  print origin_city + destination_city + str(departure_date) + str(return_date)
+                  params = self.make_header(origin_city, destination_city, str(departure_date), str(return_date))
 
                   # Check if row is already in the database
                   # If not, create a new object
@@ -100,16 +100,16 @@ class PullFlights(object):
                     existing = self.session.query(Trip).filter_by(
                          origin = origin_city
                         ,destination = destination_city
-                        ,departure_date = departure_date
-                        ,return_date = return_date
+                        ,departure_date = str(departure_date)
+                        ,return_date = str(return_date)
                         ).one()
                     newtrip = existing
                   except NoResultFound:
                     newtrip = Trip(
                          origin = origin_city
                         ,destination = destination_city
-                        ,departure_date =departure_date
-                        ,return_date = return_date
+                        ,departure_date =str(departure_date)
+                        ,return_date = str(return_date)
                       )
 
                   response = requests.post(self.url, data=json.dumps(params), headers=self.headers)
