@@ -7,6 +7,24 @@ from sqlalchemy import UniqueConstraint
 
 Base = declarative_base()
 
+class Origin(Base):
+    __tablename__ = 'origins'
+    id = Column(Integer, primary_key=True)
+    origin = Column(String)
+    __table_args__ = (UniqueConstraint('origin'),)
+
+class Destination(Base):
+    __tablename__ = 'destinations'
+    id = Column(Integer, primary_key=True)
+    destination = Column(String)
+    __table_args__ = (UniqueConstraint('destination'),)
+
+class Departure(Base):
+    __tablename__ = 'departures'
+    id = Column(Integer, primary_key=True)
+    departure_date = Column(Date)
+    __table_args__ = (UniqueConstraint('departure_date'),)
+
 class Trip(Base):
     __tablename__ = 'trips'
     id = Column(Integer, primary_key=True)
