@@ -1,3 +1,4 @@
+# Here's how to seed the database with an origin, a destination, and a date so that it can search for flights.
 from db.models import *
 from db.Connection import *
 
