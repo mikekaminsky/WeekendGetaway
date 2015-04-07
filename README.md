@@ -20,6 +20,8 @@ ToDo:
 * [x] Deploy app on heroku
 * [x] Find better way of specifying database. Use [.env files](https://devcenter.heroku.com/articles/config-vars), use secrets.py, or see [this SO thread](http://stackoverflow.com/questions/5981508/share-database-between-2-apps-in-heroku) or [this Heroku post](https://blog.heroku.com/archives/2015/1/23/expanding_the_power_of_add_ons)
 * [x] Use DB to manage which trips get queried
+* [ ] Write script to dump data so Heroku doesn't drop the ban hammer.
+* [ ] Load dump files into HDFS for future processing. 
 * [ ] Try to figure out  a good system for doing migrations...[Try SQLAlchemy-Migrate](http://www.karoltomala.com/blog/?p=633) or [Alembic](http://alembic.readthedocs.org/en/latest/tutorial.html)
 * [ ] Set up payments for API use
 * [ ] Loop over next 10 weekends
