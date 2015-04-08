@@ -21,7 +21,12 @@ ToDo:
 * [x] Find better way of specifying database. Use [.env files](https://devcenter.heroku.com/articles/config-vars), use secrets.py, or see [this SO thread](http://stackoverflow.com/questions/5981508/share-database-between-2-apps-in-heroku) or [this Heroku post](https://blog.heroku.com/archives/2015/1/23/expanding_the_power_of_add_ons)
 * [x] Use DB to manage which trips get queried
 * [ ] Write script to dump data so Heroku doesn't drop the ban hammer.
-* [ ] Load dump files into HDFS for future processing. See how to [article here](http://java.dzone.com/articles/how-set-multi-node-hadoop) and [amazon docs here](http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-file-systems.html) and this [hadoop wiki] (https://wiki.apache.org/hadoop/AmazonEC2). Put your hard hat on because this is some real devops shit.
+* [ ] Load dump files into HDFS for future processing. Resources: 
+ * [article here](http://java.dzone.com/articles/how-set-multi-node-hadoop)
+ * [amazon docs here](http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-file-systems.html) 
+ * [hadoop wiki](https://wiki.apache.org/hadoop/AmazonEC2). 
+ * Watch [this video](http://gethue.com/hadoop-tutorial-how-to-create-a-real-hadoop-cluster-in-10-minutes/) and check out [cloudera express](http://go.cloudera.com/csd)
+ * Put your hard hat on because this is some real devops shit.
 * [ ] Try to figure out  a good system for doing migrations...[Try SQLAlchemy-Migrate](http://www.karoltomala.com/blog/?p=633) or [Alembic](http://alembic.readthedocs.org/en/latest/tutorial.html)
 * [ ] Set up payments for API use
 * [ ] Loop over next 10 weekends
