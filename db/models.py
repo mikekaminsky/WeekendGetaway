@@ -43,7 +43,7 @@ class Journey(Base):
     price = Column(Numeric)
     currency = Column(String)
 
-    trip = relationship("Trip", backref=backref('journeys', lazy='dynamic', order_by=id))
+    trip = relationship("Trip", backref=backref('journeys', lazy='dynamic', order_by=id, cascade="all, delete-orphan"))
 
 
 class Flight(Base):
@@ -53,7 +53,7 @@ class Flight(Base):
     duration = Column(Integer)
     outgoing = Column(Boolean)
 
-    journey = relationship("Journey", backref=backref('flights', lazy='dynamic', order_by=id))
+    journey = relationship("Journey", backref=backref('flights', lazy='dynamic', order_by=id, cascade="all, delete-orphan"))
 
 
 class Leg(Base):
@@ -68,5 +68,5 @@ class Leg(Base):
     arrival_time = Column(DateTime)
     duration = Column(Integer)
 
-    flight = relationship("Flight", backref=backref('legs', lazy='dynamic', order_by=id))
+    flight = relationship("Flight", backref=backref('legs', lazy='dynamic', order_by=id, cascade="all, delete-orphan"))
 
