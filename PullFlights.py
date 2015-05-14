@@ -113,39 +113,40 @@ class PullFlights(object):
                       )
 
                   response = requests.post(self.url, data=json.dumps(params), headers=self.headers)
-                  date_time = time.strftime("%Y/%m/%d %H:%M:%S")
-                  options = response.json()['trips']['tripOption']
+                  if response.status_code >= 200 and response.status_code <= 300:
+                      date_time = time.strftime("%Y/%m/%d %H:%M:%S")
+                      options = response.json()['trips']['tripOption']
 
-                  # Begin looping through options
-                  for option in options:
-                      total_cost = re.sub('[^0-9\.]','',option['saleTotal'])
-                      currency = re.sub('[\d\.]','',option['saleTotal'])
-                      newjourney = Journey(time_queried = date_time, price = total_cost, currency = currency)
-                      slicenum = 0
-                      for eachslice in option['slice']: # Here is where we determine inbound vs. outbound slices.
-                        outgoing = True if slicenum == 0 else False
-                        newflight = Flight(duration = eachslice['duration'], outgoing = outgoing)
-                        slicenum += 1
-                        for segment in eachslice['segment']:
-                            carrier = segment['flight']['carrier']
-                            number = segment['flight']['number']
-                            for leg in segment['leg']:
-                                leg_origin = leg['origin']
-                                leg_departure = leg['departureTime']
-                                leg_destination = leg['destination']
-                                leg_arrival = leg['arrivalTime']
-                                leg_duration = leg['duration']
-                                newleg = Leg(
-                                     carrier = carrier
-                                    ,flight_number = number
-                                    ,origin = leg_origin
-                                    ,destination = leg_destination
-                                    ,departure_time = leg_departure
-                                    ,arrival_time = leg_arrival
-                                    ,duration = leg_duration
-                                    )
-                                newflight.legs.append(newleg)
-                        newjourney.flights.append(newflight)
-                      newtrip.journeys.append(newjourney)
-                  session.add(newtrip)
-                  self.session.commit()
+                      # Begin looping through options
+                      for option in options:
+                          total_cost = re.sub('[^0-9\.]','',option['saleTotal'])
+                          currency = re.sub('[\d\.]','',option['saleTotal'])
+                          newjourney = Journey(time_queried = date_time, price = total_cost, currency = currency)
+                          slicenum = 0
+                          for eachslice in option['slice']: # Here is where we determine inbound vs. outbound slices.
+                            outgoing = True if slicenum == 0 else False
+                            newflight = Flight(duration = eachslice['duration'], outgoing = outgoing)
+                            slicenum += 1
+                            for segment in eachslice['segment']:
+                                carrier = segment['flight']['carrier']
+                                number = segment['flight']['number']
+                                for leg in segment['leg']:
+                                    leg_origin = leg['origin']
+                                    leg_departure = leg['departureTime']
+                                    leg_destination = leg['destination']
+                                    leg_arrival = leg['arrivalTime']
+                                    leg_duration = leg['duration']
+                                    newleg = Leg(
+                                         carrier = carrier
+                                        ,flight_number = number
+                                        ,origin = leg_origin
+                                        ,destination = leg_destination
+                                        ,departure_time = leg_departure
+                                        ,arrival_time = leg_arrival
+                                        ,duration = leg_duration
+                                        )
+                                    newflight.legs.append(newleg)
+                            newjourney.flights.append(newflight)
+                          newtrip.journeys.append(newjourney)
+                      session.add(newtrip)
+                      self.session.commit()
